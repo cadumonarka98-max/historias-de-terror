@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Histórias de terror para ler no escuro. Entre, escolha um conto e descubra o que se esconde na noite.">
+    <meta name="theme-color" content="#100d10">
+    <title>Depois da Meia-Noite | Contos de Terror</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            --background: #100d10;
+            --surface: #191418;
+            --surface-raised: #21191f;
+            --text: #f4edf0;
+            --muted: #b5a6ad;
+            --accent: #df5363;
+            --accent-light: #ff8290;
+            --line: rgb(255 255 255 / 10%);
+            --serif: Georgia, "Times New Roman", serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 88px;
+        }
+
+        body {
+            margin: 0;
+            background:
+                radial-gradient(ellipse at 50% 0%, rgb(87 31 46 / 17%), transparent 38rem),
+                var(--background);
+            color: var(--text);
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.65;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        .container {
+            width: min(1120px, calc(100% - 40px));
+            margin-inline: auto;
+        }
+
+        .topbar {
+            position: sticky;
+            z-index: 5;
+            top: 0;
+            border-bottom: 1px solid var(--line);
+            background: rgb(16 13 16 / 88%);
+            backdrop-filter: blur(14px);
+        }
+
+        .navigation {
+            min-height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text);
+            font-family: var(--serif);
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            text-decoration: none;
+        }
+
+        .brand-mark {
+            display: grid;
+            width: 34px;
+            aspect-ratio: 1;
+            place-items: center;
+            border: 1px solid rgb(223 83 99 / 45%);
+            border-radius: 50%;
+            color: var(--accent-light);
+            font-size: 1.1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: color 160ms ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus-visible {
+            color: var(--accent-light);
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            min-height: 590px;
+            display: grid;
+            align-items: center;
+            border-bottom: 1px solid var(--line);
+            background:
+                linear-gradient(90deg, #100d10 3%, rgb(16 13 16 / 92%) 39%, rgb(16 13 16 / 42%) 100%),
+                linear-gradient(0deg, rgb(16 13 16 / 38%), rgb(16 13 16 / 18%)),
+                url("https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=2000&q=85") center 48% / cover,
+                #29171f;
+        }
+
+        .hero::after {
+            position: absolute;
+            right: 11%;
+            bottom: -20%;
+            width: min(40vw, 460px);
+            aspect-ratio: 0.62;
+            border: 1px solid rgb(255 130 144 / 17%);
+            border-radius: 50% 50% 0 0;
+            background:
+                radial-gradient(ellipse at 50% 28%, rgb(255 130 144 / 14%), transparent 42%),
+                linear-gradient(180deg, rgb(223 83 99 / 10%), transparent 70%);
+            box-shadow: 0 0 100px rgb(223 83 99 / 9%);
+            content: "";
+            transform: rotate(-8deg);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 640px;
+            padding-block: 92px;
+        }
+
+        .eyebrow {
+            margin: 0 0 15px;
+            color: var(--accent-light);
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            margin-top: 0;
+        }
+
+        .hero h1 {
+            max-width: 620px;
+            margin-bottom: 20px;
+            font-family: var(--serif);
+            font-size: clamp(3.6rem, 9vw, 6.8rem);
+            font-weight: 400;
+            letter-spacing: -0.065em;
+            line-height: 0.98;
+        }
+
+        .hero h1 span {
+            display: block;
+            color: var(--accent-light);
+            font-style: italic;
+        }
+
+        .folklore-art {
+            position: relative;
+            overflow: hidden;
+            min-height: 170px;
+            background: #21191f;
+        }
+
+        .folklore-art img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.78;
+            transition: opacity 180ms ease, transform 350ms ease;
+        }
+
+        .folklore-card:hover .folklore-art img {
+            opacity: 0.95;
+            transform: scale(1.04);
+        }
+
+        .folklore-art::after {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(0deg, rgb(16 13 16 / 80%), transparent 82%);
+            content: "";
+        }
+
+        .folklore-art span {
+            position: absolute;
+            z-index: 1;
+            bottom: 12px;
+            left: 16px;
+            color: #ffd5da;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .folklore-card .story-content > p {
+            min-height: 0;
+        }
+
+        .folklore-intro {
+            max-width: 740px;
+            margin: -12px 0 30px;
+            color: var(--muted);
+        }
+
+        .folklore-note {
+            margin: 26px 0 0;
+            border-left: 2px solid var(--accent);
+            padding: 12px 16px;
+            background: rgb(255 255 255 / 3%);
+            color: var(--muted);
+            font-size: 0.86rem;
+        }
+
+        .hero-copy {
+            max-width: 480px;
+            margin-bottom: 30px;
+            color: #c7b8bf;
+            font-size: 1.05rem;
+        }
+
+        .primary-link {
+            display: inline-flex;
+            min-height: 48px;
+            align-items: center;
+            justify-content: center;
+            padding: 0 22px;
+            border: 1px solid var(--accent);
+            border-radius: 3px;
+            background: var(--accent);
+            color: #190f12;
+            font-size: 0.9rem;
+            font-weight: 750;
+            text-decoration: none;
+            transition: background 160ms ease, transform 160ms ease;
+        }
+
+        .primary-link:hover,
+        .primary-link:focus-visible {
+            background: var(--accent-light);
+            transform: translateY(-2px);
+        }
+
+        .hero-note {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            margin: 0 0 0 18px;
+            color: var(--muted);
+            font-size: 0.83rem;
+        }
+
+        .hero-note span {
+            color: var(--accent-light);
+        }
+
+        .section {
+            padding-block: 84px;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .section-heading h2 {
+            margin-bottom: 7px;
+            font-family: var(--serif);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 400;
+            letter-spacing: -0.035em;
+        }
+
+        .section-heading p {
+            margin-bottom: 0;
+            color: var(--muted);
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-bottom: 30px;
+        }
+
+        .filter-button {
+            min-height: 38px;
+            padding: 7px 15px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 0.83rem;
+            transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+        }
+
+        .filter-button:hover,
+        .filter-button:focus-visible {
+            border-color: var(--accent);
+            color: var(--text);
+        }
+
+        .filter-button[aria-pressed="true"] {
+            border-color: var(--accent);
+            background: rgb(223 83 99 / 13%);
+            color: var(--accent-light);
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .folklore-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .story-card {
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            background: var(--surface);
+            transition: border-color 180ms ease, transform 180ms ease;
+        }
+
+        .story-card:hover,
+        .story-card:focus-within {
+            border-color: rgb(223 83 99 / 52%);
+            transform: translateY(-3px);
+        }
+
+        .story-card[hidden] {
+            display: none;
+        }
+
+        .folklore-card {
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            background: var(--surface);
+            transition: border-color 180ms ease, transform 180ms ease;
+        }
+
+        .folklore-card:hover,
+        .folklore-card:focus-within {
+            border-color: rgb(223 83 99 / 52%);
+            transform: translateY(-3px);
+        }
+
+        .story-art {
+            position: relative;
+            overflow: hidden;
+            min-height: 156px;
+            display: block;
+            background: #21191f;
+        }
+
+        .story-art img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.78;
+            transition: opacity 180ms ease, transform 350ms ease;
+        }
+
+        .story-card:hover .story-art img {
+            opacity: 0.95;
+            transform: scale(1.04);
+        }
+
+        .story-art::before {
+            position: absolute;
+            z-index: 1;
+            inset: 0;
+            background: linear-gradient(0deg, rgb(16 13 16 / 74%), transparent 78%);
+            content: "";
+        }
+
+        .story-art span {
+            position: absolute;
+            z-index: 1;
+            bottom: 12px;
+            left: 16px;
+            color: #ffd5da;
+            font-family: var(--serif);
+            font-size: 1rem;
+            font-style: italic;
+        }
+
+        .story-content {
+            padding: 20px;
+        }
+
+        .story-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            color: var(--muted);
+            font-size: 0.75rem;
+        }
+
+        .story-category {
+            color: var(--accent-light);
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .story-content h3 {
+            margin-bottom: 9px;
+            font-family: var(--serif);
+            font-size: 1.45rem;
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
+        .story-content > p {
+            min-height: 52px;
+            margin-bottom: 17px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .story-content details {
+            border-top: 1px solid var(--line);
+            padding-top: 13px;
+        }
+
+        .story-content summary {
+            width: fit-content;
+            color: var(--accent-light);
+            cursor: pointer;
+            font-size: 0.86rem;
+            font-weight: 650;
+            list-style-position: inside;
+        }
+
+        .story-content summary:hover,
+        .story-content summary:focus-visible {
+            color: var(--text);
+        }
+
+        .full-story {
+            padding-top: 16px;
+            color: #d3c6cc;
+            font-family: var(--serif);
+            font-size: 1rem;
+            line-height: 1.85;
+        }
+
+        .full-story p:last-child {
+            margin-bottom: 0;
+        }
+
+        .reader {
+            width: min(820px, calc(100% - 40px));
+            margin: 54px auto 76px;
+        }
+
+        .reader-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 22px;
+            color: var(--accent-light);
+            font-size: 0.9rem;
+            font-weight: 650;
+            text-decoration: none;
+        }
+
+        .reader-back:hover,
+        .reader-back:focus-visible {
+            color: var(--text);
+        }
+
+        .reader-art {
+            position: relative;
+            overflow: hidden;
+            height: clamp(220px, 36vw, 380px);
+            margin-bottom: 30px;
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            background: var(--surface);
+        }
+
+        .reader-art img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.82;
+        }
+
+        .reader-eyebrow {
+            margin-bottom: 12px;
+            color: var(--accent-light);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .reader h1 {
+            margin-bottom: 14px;
+            font-family: var(--serif);
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 400;
+            letter-spacing: -0.045em;
+            line-height: 1.05;
+        }
+
+        .reader-summary {
+            margin-bottom: 30px;
+            color: var(--muted);
+            font-size: 1.08rem;
+        }
+
+        .reader-copy {
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            padding-block: 26px;
+            color: #e0d5da;
+            font-family: var(--serif);
+            font-size: clamp(1.05rem, 2vw, 1.18rem);
+            line-height: 1.95;
+        }
+
+        .reader-copy p {
+            margin-bottom: 1.3em;
+        }
+
+        .reader-copy p:last-child {
+            margin-bottom: 0;
+        }
+
+        .reader-navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .reader-navigation a {
+            color: var(--accent-light);
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+
+        .reader-navigation a:hover,
+        .reader-navigation a:focus-visible {
+            color: var(--text);
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        .newsletter {
+            margin-bottom: 80px;
+            padding: 34px;
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            background:
+                radial-gradient(ellipse at 100% 0%, rgb(223 83 99 / 12%), transparent 42%),
+                var(--surface);
+            text-align: center;
+        }
+
+        .newsletter .eyebrow {
+            margin-bottom: 8px;
+        }
+
+        .newsletter h2 {
+            margin-bottom: 8px;
+            font-family: var(--serif);
+            font-size: clamp(1.7rem, 4vw, 2.4rem);
+            font-weight: 400;
+        }
+
+        .newsletter p:last-child {
+            margin-bottom: 0;
+            color: var(--muted);
+        }
+
+        footer {
+            border-top: 1px solid var(--line);
+            padding-block: 25px;
+            color: var(--muted);
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        @media (max-width: 760px) {
+            .hero {
+                min-height: 520px;
+                background:
+                    linear-gradient(90deg, #100d10 0%, rgb(16 13 16 / 82%) 70%, rgb(16 13 16 / 52%) 100%),
+                    url("https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1200&q=80") center / cover,
+                    #100d10;
+            }
+
+            .hero::after {
+                right: -7%;
+                width: 55vw;
+            }
+
+            .hero-content {
+                padding-block: 78px;
+            }
+
+            .story-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .folklore-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .section {
+                padding-block: 66px;
+            }
+
+            .newsletter {
+                margin-bottom: 62px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .container {
+                width: min(100% - 32px, 1120px);
+            }
+
+            .navigation {
+                min-height: 64px;
+            }
+
+            .nav-links {
+                gap: 14px;
+            }
+
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+
+            .brand {
+                gap: 7px;
+                font-size: 0.9rem;
+            }
+
+            .brand-mark {
+                width: 30px;
+            }
+
+            .hero {
+                min-height: 500px;
+            }
+
+            .hero h1 {
+                font-size: clamp(3.3rem, 17vw, 5rem);
+            }
+
+            .hero-note {
+                display: flex;
+                margin: 16px 0 0;
+            }
+
+            .section-heading {
+                align-items: start;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .story-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .folklore-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .story-art {
+                min-height: 135px;
+            }
+
+            .story-content > p {
+                min-height: 0;
+            }
+
+            .newsletter {
+                padding: 26px 18px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <nav class="navigation container" aria-label="Navegação principal">
+            <a class="brand" href="#" aria-label="Depois da Meia-Noite, página inicial">
+                <span class="brand-mark" aria-hidden="true">☾</span>
+                Depois da Meia-Noite
+            </a>
+            <div class="nav-links">
+                <a href="#historias">Histórias</a>
+                <a href="#folclore">Folclore</a>
+                <a href="#sobre">Sobre</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-content container">
+                <p class="eyebrow">Um convite para sentir medo</p>
+                <h1 id="hero-title">A noite guarda <span>segredos.</span></h1>
+                <p class="hero-copy">Contos originais para quem sabe que nem todo silêncio é vazio — e nem toda sombra está sozinha.</p>
+                <a class="primary-link" href="#historias">Explorar histórias <span aria-hidden="true">&nbsp;→</span></a>
+                <p class="hero-note"><span aria-hidden="true">✦</span> Leia com as luzes acesas. Ou não.</p>
+            </div>
+        </section>
+
+        <section class="section container" id="historias" aria-labelledby="stories-title">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Contos para perder o sono</p>
+                    <h2 id="stories-title">Escolha seu próximo medo</h2>
+                    <p>Histórias curtas. Sensações que ficam por muito mais tempo.</p>
+                </div>
+            </div>
+
+            <div class="filters" role="group" aria-label="Filtrar histórias por gênero">
+                <button class="filter-button" type="button" data-filter="all" aria-pressed="true">Todas</button>
+                <button class="filter-button" type="button" data-filter="sobrenatural" aria-pressed="false">Sobrenatural</button>
+                <button class="filter-button" type="button" data-filter="suspense" aria-pressed="false">Suspense</button>
+                <button class="filter-button" type="button" data-filter="urbano" aria-pressed="false">Lendas urbanas</button>
+            </div>
+
+            <div class="story-grid" id="story-grid">
+                <article class="story-card" data-category="sobrenatural" data-story-id="janela">
+                    <div class="story-art art-window">
+                        <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=900&q=80" alt="Prédio escuro sob o céu noturno" loading="lazy" decoding="async">
+                        <span aria-hidden="true">01 · A janela</span>
+                    </div>
+                    <div class="story-content">
+                        <div class="story-meta"><span class="story-category">Sobrenatural</span><span>·</span><span>4 min de leitura</span></div>
+                        <h3>A janela do quarto 12</h3>
+                        <p>Toda noite, alguém acena para Marina do prédio abandonado em frente.</p>
+                        <details>
+                            <summary>Ler história</summary>
+                            <div class="full-story">
+                                <p>Marina aceitou o emprego no centro porque precisava recomeçar. Depois da morte da irmã mais nova, a casa da família parecia cheia de conversas interrompidas e objetos que ninguém tinha coragem de guardar. O quarto 12, num edifício antigo, era pequeno, mas barato. Da janela, via a rua estreita e um prédio fechado desde um incêndio ocorrido muito antes de ela nascer.</p>
+                                <p>Na primeira noite, enquanto desempacotava uma caixa de fotografias, viu uma mulher parada diante da janela oposta. Vestido claro, cabelo preso, uma das mãos apoiada no vidro. Marina sentiu um aperto familiar: a mulher tinha o mesmo jeito de inclinar a cabeça que sua irmã tinha quando queria perguntar alguma coisa sem interromper.</p>
+                                <p>Ela piscou. A figura levantou a mão e acenou. Marina respondeu antes de pensar. Na noite seguinte, a mulher voltou. Depois, todas as noites. Nunca parecia mais perto, mas Marina começou a notar pequenos detalhes: a manga molhada, uma mancha escura no ombro, os dedos pressionados contra o vidro como se pedissem passagem.</p>
+                                <p>Marina deixou de dormir. Fechava as cortinas, mas acordava com elas abertas. Certa madrugada, encontrou uma fotografia antiga no chão: ela e a irmã, ainda crianças, diante de um prédio que não reconheceu. No verso, a irmã escrevera: “Quando eu acenar, acena de volta.” Marina não lembrava daquela frase, nem daquele lugar.</p>
+                                <p>Na manhã seguinte, perguntou ao zelador sobre o prédio. Ele contou que um incêndio começara no sexto andar e que uma menina ficara presa atrás de uma janela. Marina mostrou a fotografia. O homem empalideceu: o prédio tinha sido demolido havia décadas. No terreno, agora havia apenas um estacionamento vazio.</p>
+                                <p>Naquela noite, a chuva cobriu a cidade. Marina deixou a cortina aberta. A janela do outro lado estava escura. Sentiu alívio — até ouvir três batidas no vidro atrás de si. No reflexo, a mulher estava à sua espera. Marina se virou. O quarto estava vazio, mas no vidro, do lado de fora, havia marcas de dedos molhados formando uma palavra: “Volta”.</p>
+                                <p>Então Marina entendeu por que a mulher lhe parecia familiar. Não era a irmã que acenava do prédio abandonado. Era Marina, refletida numa fotografia que ainda não tinha sido tirada.</p>
+                            </div>
+                        </details>
+                    </div>
+                </article>
+
+                <article class="story-card" data-category="urbano" data-story-id="ultimo-onibus">
+                    <div class="story-art art-road">
+                        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80" alt="Estrada deserta atravessando uma paisagem escura" loading="lazy" decoding="async">
+                        <span aria-hidden="true">02 · Última viagem</span>
+                    </div>
+                    <div class="story-content">
+                        <div class="story-meta"><span class="story-category">Lendas urbanas</span><span>·</span><span>3 min de leitura</span></div>
+                        <h3>O último ônibus</h3>
+                        <p>Na linha 404, um passageiro sempre desce no ponto que não existe.</p>
+                        <details>
+                            <summary>Ler história</summary>
+                            <div class="full-story">
+                                <p>Davi trabalhava à noite numa farmácia para ajudar a mãe, que já não conseguia manter sozinha a pequena casa onde ele crescera. O último ônibus da linha 404 passava às 23h47. Durante o trajeto, ele mandava uma mensagem dizendo “cheguei” para que ela pudesse dormir tranquila. O sinal sempre sumia depois do viaduto, justamente no trecho em que os postes estavam apagados.</p>
+                                <p>Numa quinta-feira de chuva, um senhor de terno encharcado entrou sem passar o cartão. Trazia um jornal dobrado contra o peito e os sapatos cobertos de barro. Sentou ao lado de Davi, embora todos os outros bancos estivessem vazios. O motorista não o olhou. Davi tentou voltar ao celular, mas o aparelho mostrava uma mensagem antiga da mãe: “Seu pai também pegava esse ônibus.”</p>
+                                <p>O pai de Davi desaparecera quando ele tinha seis anos. A família nunca soube se ele abandonara a casa ou se morrera no acidente de ônibus sobre o viaduto, naquela mesma linha. A mãe sempre se recusara a falar do assunto. Davi apagou a mensagem e guardou o telefone.</p>
+                                <p>O senhor apertou o botão de parada diante de um terreno baldio. Davi reconheceu o lugar por uma velha fotografia: ali ficava o ponto onde o pai costumava esperar o ônibus.</p>
+                                <p>— Aqui não tem ponto — disse Davi.</p>
+                                <p>— Para mim, tem. Faz dezoito anos que estou esperando você voltar para casa.</p>
+                                <p>O homem abriu o jornal. A fotografia era a do pai de Davi, mais jovem, sorrindo ao lado de um ônibus. O motorista finalmente olhou pelo espelho e sussurrou: “Não deixe ele descer sozinho.” Davi quis perguntar o que aquilo significava, mas as portas já estavam abertas e o vento frio entrava no veículo.</p>
+                                <p>O senhor não saiu. Pôs o jornal no colo de Davi e pediu que entregasse à mãe. Então o ônibus arrancou. Em casa, Davi contou tudo. A mãe leu a notícia de um acidente ocorrido dezoito anos antes e chorou pela primeira vez em muito tempo. No verso do jornal, havia uma frase escrita à mão: “Diga ao nosso filho que eu tentei voltar.”</p>
+                                <p>Na viagem seguinte, Davi sentou no primeiro banco. Quando passaram pelo viaduto, o motorista olhou para o espelho e assentiu. No ponto vazio, ninguém esperava. Pela primeira vez, Davi conseguiu mandar a mensagem para a mãe antes de o ônibus chegar ao outro lado.</p>
+                            </div>
+                        </details>
+                    </div>
+                </article>
+
+                <article class="story-card" data-category="suspense" data-story-id="nao-atenda">
+                    <div class="story-art art-audio">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" alt="Celular iluminado em um ambiente escuro" loading="lazy" decoding="async">
+                        <span aria-hidden="true">03 · Chamada perdida</span>
+                    </div>
+                    <div class="story-content">
+                        <div class="story-meta"><span class="story-category">Suspense</span><span>·</span><span>5 min de leitura</span></div>
+                        <h3>Não atenda</h3>
+                        <p>O celular de Lucas toca todas as madrugadas. Do outro lado, a própria voz.</p>
+                        <details>
+                            <summary>Ler história</summary>
+                            <div class="full-story">
+                                <p>Lucas comprou o celular usado na semana em que se mudou para um apartamento pequeno, tentando economizar depois de perder o emprego. O aparelho tinha uma rachadura no canto e uma fotografia esquecida na galeria: uma criança diante de uma porta vermelha. Ele apagou a imagem, restaurou o telefone e não pensou mais nisso.</p>
+                                <p>Na primeira madrugada, às 3h13, recebeu uma chamada de número desconhecido. Do outro lado, ouviu a própria respiração, acelerada, e um ruído baixo de televisão. Então sua voz sussurrou: “Não abra a porta. Você prometeu que não abriria.” Lucas desligou, irritado consigo mesmo por ter se assustado com uma gravação.</p>
+                                <p>Na noite seguinte, a chamada voltou. Dessa vez, a voz sabia que Lucas dormia com a luz do corredor acesa. Na terceira noite, antes que o telefone tocasse, três batidas soaram na porta do apartamento. Ele olhou pelo olho mágico: o corredor estava vazio, mas havia pegadas molhadas no chão, começando na escada e terminando diante de sua porta.</p>
+                                <p>O celular tocou. — Não abra — implorou a voz. — Da outra vez, você abriu.</p>
+                                <p>Lucas recuou. A maçaneta girou lentamente. Ele ligou para a polícia, mas a chamada não completou. O aparelho vibrou com uma mensagem: “Não adianta. Eu já estou aí.” Do armário do quarto veio um ruído, como alguém arrastando os pés sobre madeira molhada.</p>
+                                <p>Lucas se trancou no banheiro e tentou ligar para a mãe. Ela atendeu sonolenta. Quando ouviu as batidas, ficou em silêncio por alguns segundos. “Filho, quando você tinha cinco anos, costumava falar com alguém que chamava de Lucas-do-armário. A gente se mudou por causa disso. Eu achei que você tivesse esquecido.”</p>
+                                <p>Do lado de fora, a voz chamou pelo apelido que só a mãe usava. Lucas perguntou se ela ainda estava na linha. Ela respondeu que sim, mas a voz que veio do telefone era outra: “Ele abriu a porta naquela noite. Agora é sua vez.”</p>
+                                <p>A maçaneta do banheiro começou a girar. Lucas apertou o telefone contra o ouvido. No visor, o contador da ligação avançava, embora a mãe jurasse que acabara de desligar. Às 3h13 da manhã seguinte, o celular tocou no apartamento vazio. Uma criança atendeu do armário.</p>
+                            </div>
+                        </details>
+                    </div>
+                </article>
+
+                <article class="story-card" data-category="sobrenatural" data-story-id="casa-respirava">
+                    <div class="story-art art-house">
+                        <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&w=900&q=80" alt="Casa antiga isolada entre árvores" loading="lazy" decoding="async">
+                        <span aria-hidden="true">04 · A casa</span>
+                    </div>
+                    <div class="story-content">
+                        <div class="story-meta"><span class="story-category">Sobrenatural</span><span>·</span><span>4 min de leitura</span></div>
+                        <h3>A casa que respirava</h3>
+                        <p>O assoalho estufava e baixava como um peito adormecido.</p>
+                        <details>
+                            <summary>Ler história</summary>
+                            <div class="full-story">
+                                <p>Elisa voltou à cidade onde crescera depois de perder o emprego. A casa da avó, fechada desde o funeral, era a única coisa que herdara sem dívidas. Antes de entregar a chave, a mãe segurou seu braço e pediu que não dormisse no quarto dos fundos. Quando Elisa perguntou por quê, ouviu a mesma resposta de sempre: “Sua avó tinha suas manias.”</p>
+                                <p>A casa ficava no fim de uma estrada de terra, cercada por árvores que escondiam o céu. Ao entrar, Elisa encontrou os móveis cobertos por lençóis e um cheiro de terra molhada. No corredor, o assoalho cedia e voltava ao lugar num ritmo lento. O corretor disse que eram vigas velhas. Elisa acreditou porque precisava acreditar.</p>
+                                <p>Na primeira noite, ouviu estalos atrás das paredes. Na segunda, um suspiro longo pareceu atravessar os cômodos. Na terceira, acordou com o colchão afundando sob seus pés e uma voz abafada vindo do quarto dos fundos: “Você voltou.”</p>
+                                <p>Durante o dia, tentou encontrar a origem do som. O quarto estava trancado. Na gaveta da cozinha, encontrou um molho de chaves e um caderno da avó, preenchido com anotações sobre a casa: “Não abra quando ela chamar”; “o ar entra por baixo da porta”; “se parar de respirar, ela acorda”. As últimas páginas estavam arrancadas.</p>
+                                <p>Elisa ligou para a mãe. Ao ouvir o relato, ela finalmente contou que a avó passara os últimos anos dormindo numa cadeira diante daquele quarto. Dizia que algo respirava sob a casa desde antes de a família se mudar. A mãe de Elisa fugira ainda adolescente, depois de escutar a própria voz chamando do outro lado da porta.</p>
+                                <p>Elisa fez as malas. A cada objeto retirado, o corredor ficava mais silencioso. Quando abriu a porta da frente, o assoalho afundou de uma vez, como um peito puxando o último fôlego. A casa inteira inspirou. As paredes se alargaram; as janelas estremeceram. Do quarto dos fundos veio a voz da avó: “Não me deixe sozinha de novo.”</p>
+                                <p>Elisa correu até o carro. No retrovisor, viu a janela do quarto se abrir. Não havia ninguém ali — apenas a cortina balançando para dentro, embora todas as janelas estivessem fechadas. Dirigiu sem olhar para trás.</p>
+                                <p>Meses depois, a mãe a visitou no novo apartamento. No meio da conversa, parou e inclinou a cabeça, escutando. Elisa perguntou o que foi. A mãe sorriu, aliviada: “A casa parou de respirar.” Naquela noite, Elisa acordou com um suspiro vindo debaixo do piso.</p>
+                            </div>
+                        </details>
+                    </div>
+                </article>
+
+                <article class="story-card" data-category="urbano" data-story-id="andar-13">
+                    <div class="story-art art-elevator">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80" alt="Edifício alto visto de baixo à noite" loading="lazy" decoding="async">
+                        <span aria-hidden="true">05 · Andar 13</span>
+                    </div>
+                    <div class="story-content">
+                        <div class="story-meta"><span class="story-category">Lendas urbanas</span><span>·</span><span>3 min de leitura</span></div>
+                        <h3>O andar que não existe</h3>
+                        <p>O elevador parou no décimo terceiro. O prédio só tinha doze andares.</p>
+                        <details>
+                            <summary>Ler história</summary>
+                            <div class="full-story">
+                                <p>André trabalhava havia seis meses no arquivo de uma empresa de seguros, no décimo segundo andar de uma torre comercial antiga. Ficava até tarde organizando documentos de um incêndio ocorrido no próprio prédio, décadas antes. O relatório terminava com uma página faltando e uma lista de funcionários que nunca haviam sido encontrados.</p>
+                                <p>O porteiro, seu Álvaro, sempre trancava a entrada à meia-noite. Na primeira semana, contou a André que o prédio tinha treze pavimentos, mas que o último fora fechado depois do incêndio. “Não existe no painel”, explicou. André achou que fosse uma lenda inventada para assustar novatos. Naquela sexta-feira, ficou até tarde para terminar o relatório.</p>
+                                <p>Quando entrou no elevador, o relógio marcava 00h13. Apertou o térreo. A luz piscou; o painel apagou. Ao voltar, mostrava o número 13 em vermelho. O elevador subiu, embora o prédio não tivesse para onde subir.</p>
+                                <p>As portas abriram para um corredor que cheirava a papel queimado. Havia uma fileira de portas com placas enferrujadas. A última trazia o nome completo de André, escrito à mão, e uma data: a dezoito anos atrás — o ano do incêndio. Do outro lado, um telefone começou a tocar.</p>
+                                <p>Seu Álvaro ligou para o celular. “Não saia. Se você ouvir alguém chamando, não responda.” André perguntou como o porteiro sabia onde ele estava. A resposta veio baixa: “Porque eu fiquei lá em cima.” A ligação caiu. Então passos ecoaram no corredor, parando sempre que André prendia a respiração.</p>
+                                <p>Na porta com seu nome, havia uma fresta. André viu seu próprio escritório do outro lado: as caixas, a mesa, o relatório aberto. Um homem de costas trabalhava sob a luz da luminária. Vestia a mesma camisa que André. Sobre a mesa, lia-se a página desaparecida do arquivo, com a assinatura de seu Álvaro no rodapé.</p>
+                                <p>O telefone tocou outra vez. Seu Álvaro gritou para ele apertar o botão do térreo e não olhar para trás. André fez isso. As portas começaram a fechar. No último instante, o homem do corredor virou o rosto. Não era André: era o funcionário desaparecido na fotografia antiga, usando o rosto de André como uma máscara mal ajustada.</p>
+                                <p>Na manhã seguinte, o elevador foi encontrado no térreo. A página faltante estava sobre a mesa do arquivo, sem uma única palavra. Seu Álvaro pediu demissão e deixou a cidade. Desde então, o painel salta do 12 para o 1 — mas, às 00h13, uma luz vermelha aparece no espaço vazio entre os números.</p>
+                            </div>
+                        </details>
+                    </div>
+                </article>
+
+                <article class="story-card" data-category="suspense" data-story-id="debaixo-agua">
+                    <div class="story-art art-sea">
+                        <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=900&q=80" alt="Ondas escuras quebrando na costa" loading="lazy" decoding="async">
+                        <span aria-hidden="true">06 · Fundo da piscina</span>
+                    </div>
+                    <div class="story-content">
+                        <div class="story-meta"><span class="story-category">Suspense</span><span>·</span><span>4 min de leitura</span></div>
+                        <h3>Debaixo da água</h3>
+                        <p>Na piscina vazia, alguém batia no vidro por baixo da superfície.</p>
+                        <details>
+                            <summary>Ler história</summary>
+                            <div class="full-story">
+                                <p>Nina aceitara o turno da noite no Hotel Atlântico para pagar as contas do pai, que estava internado desde um acidente na estrada. O hotel seria demolido no fim do mês. Quase todos os hóspedes já tinham ido embora, mas o gerente mantinha a piscina coberta fechada, dizendo que uma tubulação antiga podia ceder.</p>
+                                <p>Às duas da manhã, três batidas secas ecoaram no corredor. Nina reconheceu o ritmo: era o mesmo que o pai fazia na porta do quarto dela quando voltava tarde do trabalho. Seguiu o som até a piscina, embora tivesse prometido a si mesma não entrar ali depois da primeira noite.</p>
+                                <p>O tanque estava vazio. No fundo, uma pequena poça refletia o teto. Nina sabia que o ralo fora lacrado; ainda assim, a água ondulou quando ela se aproximou. As batidas vieram de baixo dos seus pés. No vidro de inspeção, surgiu uma mulher com o cabelo grudado no rosto, como se estivesse submersa.</p>
+                                <p>Nina recuou. A mulher não olhava para ela, mas para o crachá preso à sua camisa. Então ergueu a mão e encostou a palma no vidro. No mesmo instante, o telefone de Nina tocou. Era o hospital: o pai acordara do coma e queria falar com ela.</p>
+                                <p>Antes que pudesse atender, a mulher bateu três vezes. No vidro embaçado, escreveu com o dedo: “Ele já está aqui.” Do lado de fora da piscina, um homem chamou Nina pelo apelido de infância. A voz era idêntica à do pai, mas vinha do fundo vazio do tanque.</p>
+                                <p>Nina correu para a porta. A chave não girava. Atrás dela, o som de água enchendo a piscina crescia, embora o tanque continuasse seco. Pelo vidro, a mulher apontou para a saída. Nina viu que a porta estava aberta — e que a figura refletida no vidro era ela mesma, parada no fundo, do outro lado da água.</p>
+                                <p>Conseguiu sair quando o telefone tocou de novo. No hospital, o pai estava acordado. Ele disse que sonhara com a filha batendo numa janela, pedindo para entrar. Nina não contou o que vira. Pediu demissão naquela manhã e nunca mais voltou ao hotel.</p>
+                                <p>Anos depois, ao passar pelo terreno onde o hotel ficava, Nina ouviu três batidas vindas de um bueiro. O telefone vibrou com uma mensagem do número antigo do pai: “Abre a porta. Estou com frio.”</p>
+                            </div>
+                        </details>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section container" id="folclore" aria-labelledby="folklore-title">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Lendas de diferentes tradições</p>
+                    <h2 id="folklore-title">O medo também viaja</h2>
+                </div>
+            </div>
+            <p class="folklore-intro">Conheça figuras e histórias de terror associadas às tradições populares de seis países. Abra cada relato para ler uma recontagem original e descobrir um pouco do contexto da lenda.</p>
+
+            <div class="folklore-grid">
+                <article class="folklore-card" data-story-id="loira-banheiro">
+                    <div class="folklore-art">
+                        <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=900&q=80" alt="Janela de escola iluminada no escuro" loading="lazy" decoding="async">
+                        <span>Brasil</span>
+                    </div>
+                    <div class="story-content">
+                        <div class="story-meta"><span class="story-category">Lenda urbana</span><span>·</span><span>Folclore escolar</span></div>
+                        <h3>A Loira do Banheiro</h3>
+                        <p>Uma aparição que assombra corredores e banheiros de escolas em relatos populares brasileiros.</p>
+                        <details>
+                            <summary>Conhecer a lenda</summary>
+                            <div class="full-story">
+                                <p>Em muitas escolas brasileiras, a história da Loira do Banheiro passa de estudante para estudante. Os detalhes mudam de cidade para cidade: há quem diga que ela aparece no espelho, quem fale de uma antiga aluna e quem jure ter ouvido passos quando o corredor estava vazio. Não existe uma versão única nem uma origem confirmada.</p>
+                                <p>Nesta recontagem, Júlia ficou para trás depois da aula para buscar um caderno esquecido. O prédio parecia maior sem o barulho das outras turmas. Quando entrou no banheiro, uma lâmpada piscou e o espelho embaçou, apesar de as torneiras estarem secas.</p>
+                                <p>Do lado de fora, uma colega chamou seu nome. Júlia abriu a porta, mas o corredor continuava vazio. No espelho, porém, uma figura de cabelo claro permanecia atrás dela. Júlia se virou: não havia ninguém. Quando olhou de novo, a mulher já não estava no reflexo — só o caderno, aberto sobre a pia, numa página que Júlia nunca tinha escrito: “Não vá embora sozinha.”</p>
+                                <p>A lenda costuma ser contada como um susto entre estudantes; cada comunidade acrescenta seus próprios detalhes. Aqui, ela é apresentada como tradição oral contemporânea, não como fato comprovado.</p>
+                            </div>
+                        </details>
+                    </div>
+                </article>
+
+                <article class="folklore-card" data-story-id="bruxa-bell">
+                    <div class="folklore-art">
+                        <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=900&q=80" alt="Rua antiga ao anoitecer" loading="lazy" decoding="async">
+                        <span>Estados Unidos</span>
+                    </div>
+                    <div class="story-content">
+                        <div class="story-meta"><span class="story-category">Lenda regional</span><span>·</span><span>Tradição do Tennessee</span></div>
+                        <h3>A Bruxa de Bell</h3>
+                        <p>Uma das histórias de assombração mais conhecidas do folclore do Tennessee.</p>
+                        <details>
+                            <summary>Conhecer a lenda</summary>
+                            <div class="full-story">
+                                <p>A lenda da Bruxa de Bell é associada à família Bell e à região de Adams, no Tennessee, no começo do século XIX. Os relatos foram transmitidos e recontados ao longo do tempo, com diferenças sobre quem — ou o quê — estaria por trás dos fenômenos. A história tornou-se parte do folclore local, mas os acontecimentos sobrenaturais não são fatos verificados.</p>
+                                <p>Nesta versão, Betsy Bell ouvia à noite batidas nas paredes da casa da família. Primeiro, pensou que fossem galhos raspando nas tábuas. Depois vieram sussurros que pareciam responder às conversas da sala, sempre com uma voz diferente: ora rouca como a de um velho, ora fina como a de uma criança.</p>
+                                <p>O pai acendeu todas as lamparinas e examinou o sótão. Não encontrou ninguém. Quando voltou, a cadeira de Betsy estava vazia e a porta continuava trancada por dentro. A família ouviu então a voz da moça vindo do lado de fora, junto à janela: “Não procurem no escuro o que já conhece o caminho da casa.”</p>
+                                <p>As muitas versões da lenda refletem décadas de recontos regionais. Este pequeno conto é uma adaptação literária inspirada nessa tradição, não um registro histórico dos fatos.</p>
+                            </div>
+                        </details>
+                    </div>
+                </article>
+
+                <article class="folklore-card" data-story-id="la-llorona">
+                    <div class="folklore-art">
+                        <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=900&q=80" alt="Água escura sob a luz da noite" loading="lazy" decoding="async">
+                        <span>México</span>
+                    </div>
+                    <div class="story-content">
+                        <div class="story-meta"><span class="story-category">Lenda popular</span><span>·</span><span>Tradição oral</span></div>
+                        <h3>La Llorona</h3>
+                        <p>Às margens de rios e canais, dizem que um lamento chama por quem caminha tarde da noite.</p>
+                        <details>
+                            <summary>Conhecer a lenda</summary>
+                            <div class="full-story">
+                                <p>La Llorona — “a mulher que chora” — é uma das lendas mais conhecidas do México e de outras partes da América Latina. Uma figura vestida de branco percorre a noite lamentando a perda dos filhos. As origens e os motivos variam muito: há versões coloniais, interpretações ligadas a narrativas indígenas e inúmeras recontagens locais.</p>
+                                <p>Numa cidade cortada por canais, Mateo voltou para casa depois de visitar a avó. A água estava lisa como vidro, e as ruas tinham ficado vazias. Ao longe, ouviu um choro comprido. Pensou que alguém estivesse pedindo ajuda e caminhou até a margem.</p>
+                                <p>Uma mulher de branco estava de costas, chamando por seus filhos. Mateo se aproximou, mas cada passo parecia afastar a figura, embora a água permanecesse imóvel. Então se lembrou do aviso da avó: quando o lamento parece vir de longe, talvez esteja perto; quando parece perto, não responda.</p>
+                                <p>Mateo não disse nada. A mulher parou de chorar e perguntou, com uma voz cansada, se ele sabia o caminho de casa. Ele apontou para a rua iluminada. A figura virou o rosto — e a água refletiu apenas a lua. Na manhã seguinte, havia pegadas molhadas diante da porta da avó.</p>
+                                <p>Não há uma versão definitiva dessa narrativa. Este conto é uma reimaginação respeitosa de um motivo presente em muitas tradições e comunidades.</p>
+                            </div>
+                        </details>
+                    </div>
+                </article>
+
+                <article class="folklore-card" data-story-id="yuki-onna">
+                    <div class="folklore-art">
+                        <img src="https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=900&q=80" alt="Floresta coberta de névoa" loading="lazy" decoding="async">
+                        <span>Japão</span>
+                    </div>
+                    <div class="story-content">
+                        <div class="story-meta"><span class="story-category">Yōkai</span><span>·</span><span>Folclore japonês</span></div>
+                        <h3>Yuki-onna, a mulher da neve</h3>
+                        <p>Uma aparição pálida surge em noites de nevasca nas histórias de regiões montanhosas.</p>
+                        <details>
+                            <summary>Conhecer a lenda</summary>
+                            <div class="full-story">
+                                <p>Yuki-onna, a mulher da neve, aparece em diversas narrativas japonesas como uma figura sobrenatural associada ao frio e às tempestades de inverno. Suas características mudam entre regiões e autores: às vezes é ameaçadora, às vezes poupa viajantes, e em alguns contos se aproxima dos humanos. Uma versão muito conhecida foi registrada por Lafcadio Hearn em <em>Kwaidan</em>, publicado em 1904.</p>
+                                <p>Nesta recontagem, dois viajantes perderam o caminho durante uma nevasca. O mais velho encontrou abrigo sob um abrigo de madeira; o mais jovem permaneceu acordado, ouvindo o vento passar pelas frestas. Uma mulher de branco apareceu junto à porta. Sua presença não deixou pegadas, mas o gelo cobriu as tábuas por onde ela passou.</p>
+                                <p>Ela inclinou-se sobre o viajante mais velho, que dormia, e o frio da sala pareceu crescer. Ao olhar para o rapaz, porém, hesitou. “Você ainda tem uma promessa a cumprir”, disse, antes de desaparecer na neve.</p>
+                                <p>Anos depois, o jovem contou o encontro à esposa, descrevendo o rosto da aparição. Ela o escutou em silêncio: era exatamente o rosto dela. “Prometeu que não falaria sobre aquela noite”, disse. Do lado de fora, a neve começou a cair, embora fosse verão.</p>
+                                <p>As versões de Yuki-onna são variadas e fazem parte de uma tradição narrativa ampla; este conto é uma adaptação, não uma tradução literal de um relato específico.</p>
+                            </div>
+                        </details>
+                    </div>
+                </article>
+
+                <article class="folklore-card" data-story-id="jiangshi">
+                    <div class="folklore-art">
+                        <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=900&q=80" alt="Rua envolta em sombras durante a noite" loading="lazy" decoding="async">
+                        <span>China</span>
+                    </div>
+                    <div class="story-content">
+                        <div class="story-meta"><span class="story-category">Criatura lendária</span><span>·</span><span>Folclore chinês</span></div>
+                        <h3>O jiangshi</h3>
+                        <p>O cadáver errante das narrativas chinesas é reconhecido por seu andar rígido e seus saltos.</p>
+                        <details>
+                            <summary>Conhecer a lenda</summary>
+                            <div class="full-story">
+                                <p>Jiangshi é uma figura sobrenatural do folclore chinês, geralmente descrita como um cadáver reanimado que se desloca de maneira rígida, às vezes aos saltos. Histórias e representações mudam com o tempo e de uma região para outra; a criatura também ganhou novas versões na literatura, no teatro e no cinema.</p>
+                                <p>Nesta história, Lin trabalhava no arquivo de um pequeno templo. Certa noite, encontrou uma lista de nomes sem data, guardada entre registros antigos. Ao ler o último, ouviu três batidas na porta. Do lado de fora, um viajante coberto de poeira pediu abrigo até o amanhecer.</p>
+                                <p>O homem não dobrava os joelhos ao caminhar. Levava um talismã amarelado preso ao peito e repetia que precisava chegar à aldeia antes do primeiro sino. Lin ofereceu água, mas o visitante não tocou no copo. Em vez disso, perguntou quem tinha lido seu nome em voz alta.</p>
+                                <p>Lin olhou para a lista sobre a mesa. A tinta ainda estava fresca. O visitante avançou um passo, sem mover as pernas. Então o sino do templo tocou, embora ninguém estivesse na torre. A porta se abriu sozinha; o viajante desapareceu, deixando no chão pegadas que começavam dentro do arquivo e seguiam para a rua.</p>
+                                <p>O jiangshi tem muitas representações populares. Esta cena é uma recontagem ficcional inspirada na criatura, e não uma descrição de uma crença uniforme de todas as comunidades chinesas.</p>
+                            </div>
+                        </details>
+                    </div>
+                </article>
+
+                <article class="folklore-card" data-story-id="cheonyeo-gwishin">
+                    <div class="folklore-art">
+                        <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=900&q=80" alt="Telhados de uma cidade sob a noite" loading="lazy" decoding="async">
+                        <span>Coreia</span>
+                    </div>
+                    <div class="story-content">
+                        <div class="story-meta"><span class="story-category">Gwisin</span><span>·</span><span>Folclore coreano</span></div>
+                        <h3>Cheonyeo gwishin</h3>
+                        <p>Uma figura fantasmagórica presente em narrativas populares e na cultura de terror coreana.</p>
+                        <details>
+                            <summary>Conhecer a lenda</summary>
+                            <div class="full-story">
+                                <p>Cheonyeo gwishin é uma figura do folclore coreano associada ao espírito de uma jovem que morreu antes de se casar. Em representações conhecidas, aparece com roupas brancas e cabelos longos. A imagem reflete antigas ideias sobre deveres familiares e ritos funerários, mas as narrativas e as interpretações variam entre períodos e comunidades; não representa uma crença única de todas as pessoas coreanas.</p>
+                                <p>Na véspera da mudança, Min-seo ficou sozinha na antiga casa da família para separar as caixas. A avó sempre dizia que, se alguém chamasse seu nome depois da meia-noite, ela deveria esperar a segunda chamada antes de responder. Min-seo achava que era apenas uma maneira de fazê-la dormir cedo.</p>
+                                <p>À meia-noite, ouviu seu nome no corredor. A voz parecia a da tia que morrera antes de Min-seo nascer. Ela esperou. A segunda chamada veio do quintal. Pela janela, viu uma mulher de branco diante do portão, imóvel sob a chuva.</p>
+                                <p>Min-seo não abriu a porta. Lembrou-se de que a avó guardava no armário uma fotografia antiga da tia, sempre virada para a parede. Quando a encontrou, percebeu que a fotografia tinha sido tirada em frente à mesma casa — e que a figura no portão era jovem demais para ter envelhecido desde então.</p>
+                                <p>De manhã, a avó revelou que também ouvira as chamadas quando era jovem. A família nunca soube quem respondia por ela, mas, desde então, ninguém naquela casa atendia à primeira voz da noite. Min-seo partiu com as caixas. A fotografia ficou para trás, agora virada para a janela.</p>
+                            </div>
+                        </details>
+                    </div>
+                </article>
+            </div>
+            <p class="folklore-note">Os relatos são recontagens literárias inspiradas em lendas e tradições populares; versões, origens e interpretações podem variar entre comunidades.</p>
+        </section>
+
+        <section class="newsletter container" id="sobre" aria-labelledby="about-title">
+            <p class="eyebrow">Sobre este lugar</p>
+            <h2 id="about-title">Toda história começa no escuro.</h2>
+            <p>Um pequeno acervo de contos originais para ler quando a casa fica quieta demais.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Depois da Meia-Noite · Histórias para ler por sua conta e risco.</p>
+        </div>
+    </footer>
+
+    <script>
+        const filterButtons = document.querySelectorAll(".filter-button");
+        const storyCards = document.querySelectorAll(".story-card");
+
+        filterButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                const selectedFilter = button.dataset.filter;
+
+                filterButtons.forEach((filterButton) => {
+                    filterButton.setAttribute("aria-pressed", String(filterButton === button));
+                });
+
+                storyCards.forEach((card) => {
+                    card.hidden = selectedFilter !== "all" && card.dataset.category !== selectedFilter;
+                });
+            });
+        });
+
+        const relatoCards = Array.from(
+            document.querySelectorAll(".story-card[data-story-id], .folklore-card[data-story-id]")
+        );
+        const relatoId = new URLSearchParams(window.location.search).get("relato");
+
+        function makeRelatoUrl(id) {
+            const url = new URL(window.location.href);
+            url.searchParams.set("relato", id);
+            url.hash = "leitura";
+            return url.href;
+        }
+
+        function createReaderLink(label, href, className) {
+            const link = document.createElement("a");
+            link.className = className;
+            link.href = href;
+            link.textContent = label;
+            return link;
+        }
+
+        function renderRelato(card) {
+            const title = card.querySelector("h3").textContent.trim();
+            const category = card.querySelector(".story-category").textContent.trim();
+            const summary = card.querySelector(".story-content > p").textContent.trim();
+            const image = card.querySelector(".story-art img, .folklore-art img").cloneNode();
+            const story = card.querySelector(".full-story");
+            const reader = document.createElement("article");
+            const artwork = document.createElement("div");
+            const eyebrow = document.createElement("p");
+            const heading = document.createElement("h1");
+            const description = document.createElement("p");
+            const copy = document.createElement("div");
+            const navigation = document.createElement("nav");
+            const currentIndex = relatoCards.indexOf(card);
+            const previousCard = relatoCards[(currentIndex - 1 + relatoCards.length) % relatoCards.length];
+            const nextCard = relatoCards[(currentIndex + 1) % relatoCards.length];
+            const backUrl = new URL(window.location.href);
+
+            backUrl.search = "";
+            backUrl.hash = "historias";
+            reader.className = "reader";
+            reader.id = "leitura";
+            artwork.className = "reader-art";
+            artwork.append(image);
+            eyebrow.className = "reader-eyebrow";
+            eyebrow.textContent = category;
+            heading.textContent = title;
+            description.className = "reader-summary";
+            description.textContent = summary;
+            copy.className = "reader-copy";
+            copy.replaceChildren(...Array.from(story.children, (paragraph) => paragraph.cloneNode(true)));
+            navigation.className = "reader-navigation";
+            navigation.setAttribute("aria-label", "Navegar entre relatos");
+            navigation.append(
+                createReaderLink("← " + previousCard.querySelector("h3").textContent.trim(), makeRelatoUrl(previousCard.dataset.storyId), "reader-previous"),
+                createReaderLink(nextCard.querySelector("h3").textContent.trim() + " →", makeRelatoUrl(nextCard.dataset.storyId), "reader-next")
+            );
+            reader.append(
+                createReaderLink("← Voltar ao catálogo", backUrl.href, "reader-back"),
+                artwork,
+                eyebrow,
+                heading,
+                description,
+                copy,
+                navigation
+            );
+
+            document.querySelector("main").replaceChildren(reader);
+            document.querySelector(".brand").href = backUrl.href;
+            document.querySelector(".nav-links").replaceChildren(
+                createReaderLink("← Todos os relatos", backUrl.href, "reader-back")
+            );
+            document.title = title + " | Depois da Meia-Noite";
+        }
+
+        relatoCards.forEach((card) => {
+            card.querySelectorAll("summary").forEach((summary) => {
+                summary.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    window.location.assign(makeRelatoUrl(card.dataset.storyId));
+                });
+            });
+        });
+
+        if (relatoId) {
+            const selectedCard = relatoCards.find((card) => card.dataset.storyId === relatoId);
+
+            if (selectedCard) {
+                renderRelato(selectedCard);
+            } else {
+                const error = document.createElement("p");
+                error.className = "reader";
+                error.textContent = "Este relato não foi encontrado. Volte ao catálogo para escolher outra história.";
+                document.querySelector("main").replaceChildren(error);
+                document.querySelector(".nav-links").replaceChildren(
+                    createReaderLink("← Todos os relatos", window.location.pathname + "#historias", "reader-back")
+                );
+            }
+        }
+    </script>
+</body>
+</html>
